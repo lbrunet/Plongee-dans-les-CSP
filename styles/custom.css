@@ -1,0 +1,253 @@
+.shower {
+    --color-joli: #f7d325;
+    --color-danger: #ffbebe;
+    --color-success: #a6ffa4;
+    --color-grey-dark: #4a4a4a;
+    --color-white: #fff;
+    --color-blue: var(--color-joli);
+    --color-link: #1d47d2;
+    --progress-size: 25px;
+    --progress-content: 'Plongée dans les CSP - 2019 - @lbrunet_com';
+    --color-grey: #333;
+    --color-grey-light: #a1a1a1;
+    font: 22px/1.6 'PT Sans', sans-serif;
+}
+
+img {
+    max-width: 100%;
+}
+
+.cover {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.caption {
+    color: var(--color-joli);
+    text-shadow: 0 2px 2px #1b1b1b;
+}
+
+.shower.list .slide.active {
+    box-shadow: 0 0 0 1px #c6a422, 0 0 0 20px var(--color-joli), 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+.slide {
+    z-index: auto;
+    padding: 30px 100px 0;
+}
+
+.slide h2 { margin-bottom: 20px; }
+
+#cover,
+.picture.slide {
+    z-index: 5;
+}
+
+.slide:after {
+    position: absolute;
+    bottom: 4px;
+    right: 30px;
+    left: auto;
+    padding: 20px 0 0;
+    width: auto;
+    height: auto;
+    background: none;
+    color: var(--color-grey-dark);
+    font-size: 10px;
+    counter-increment: slide;
+    content: counter(slide);
+    top: auto;
+    z-index: 10001;
+}
+
+.shower.full .slide.cover {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: -1;
+    transform: translate(-50%, -50%);
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.progressbar-content:before {
+    background: url(../pictures/jolicode.svg) left 53% no-repeat;
+    bottom: 0;
+    color: var(--color-grey-dark);
+    font-size: 10px;
+    content: var(--progress-content);
+    height: var(--progress-size);
+    left: 40px;
+    line-height: 25px;
+    padding-left: 70px;
+    position: absolute;
+    top: auto;
+    width: 100%;
+    z-index: 100;
+}
+
+.picture.slide h2 {
+    background-color: rgba(0, 0, 0, 0.5);;
+    color: var(--color-white);
+    padding: 10px 40px 10px 50px;
+    position: absolute;
+    text-align: right;
+    top: 120px;
+    left: 0;
+    width: 934px;
+    font-size:50px;
+}
+
+#cover.slide .cover-title h2 {
+    margin-bottom: 0;
+    padding: 10px 0 0;
+    color: var(--color-white);
+}
+
+#cover.slide .cover-title {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #FFF;
+    padding: 8px 80px 12px 50px;
+    position: absolute;
+    text-align: right;
+    bottom: 30px;
+    left: -30px;
+    width: 970px;
+    font-size:50px;
+    transform:rotate(-3deg);
+    -webkit-transform:rotate(-3deg);
+}
+#cover.slide .cover-title p {
+    margin: 0;
+    padding: 0;
+    text-align: right;
+    font-size: 15px;
+}
+#cover.slide .cover-title p .date {
+    font-style: italic;
+}
+
+#cover.slide .progressbar-content,
+.picture.slide .progressbar-content {
+    display: none;
+}
+
+.slide pre mark {
+    z-index: 0;
+}
+
+.badge a {
+    color: var(--color-grey);
+}
+
+ul, ol {
+    list-style: none;
+}
+
+.slide ol.big li {
+    margin-bottom: 20px;
+}
+
+.slide ul.note,
+.slide ol.note {
+    color: var(--color-grey-light);
+    font-size: 12px;
+    position: absolute;
+    bottom: 20px;
+}
+
+.slide p.note {
+    color: var(--color-grey-light);
+    font-size: 12px;
+    position: absolute;
+    bottom: 20px;
+}
+
+.slide code.small,
+.slide kbd,
+.slide samp {
+    font-size: 14px;
+}
+
+.slide pre.small {
+    font-size: 20px;
+}
+
+.slide pre.color-gray {
+    color: var(--color-grey-dark);
+}
+
+.slide pre.color-gray strong {
+    color: #000;
+}
+
+h3 {
+    font-size: 14px;
+    margin: 15px 0 0;
+    padding: 0;
+}
+
+small {
+    font-size: 15px;
+    color: var(--color-grey-light);
+}
+
+.validation .no-valid {
+    position: absolute;
+    top: 106px;
+    right: 47px;
+    background: rgba(207, 31, 31, 0.3) url(../pictures/multiply.svg) 95% 20% no-repeat;
+    width: 90%;
+    height: 135px;
+    background-size: auto;
+}
+
+.validation .valid {
+    position: absolute;
+    top: 355px;
+    right: 47px;
+    background: rgba(20, 207, 17, 0.3) url(../pictures/check-symbol.svg) 95% 20% no-repeat;
+    width: 90%;
+    height: 170px;
+    background-size: auto;
+}
+
+.big { font-size: 20px }
+
+.slide a.link--secondary {
+    color: var(--color-joli);
+}
+
+.slide a {
+    color: var(--color-link);
+}
+
+figure.flex {
+    margin-top: 80px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+figure.flex blockquote {
+    font-size: 30px;
+    width: 60%;
+}
+
+del.csp2 {
+    color: red;
+}
+
+del.csp3 {
+    color: var(--color-link);
+}
+
+.color-gray {
+    color: var(--color-grey);
+}
+
+.disabled { color: #bdbdbd; }

@@ -1,0 +1,46 @@
+{
+  "name": "plongee-dans-les-csp",
+  "description": "Conférence à BreizhCamp, 9ème édition",
+  "version": "0.0.1",
+  "author": {
+    "name": "Laurent Brunet",
+    "url": "https://lbrunet.com/"
+  },
+  "homepage": "https://github.com/shower/shower",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/lbrunet/Plongee-dans-les-CSP.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lbrunet/Plongee-dans-les-CSP/issues"
+  },
+  "license": "MIT",
+  "keywords": [
+    "shower",
+    "presentation",
+    "template"
+  ],
+  "files": [
+    "pictures/**",
+    "index.html",
+    "LICENSE.md",
+    "README.md"
+  ],
+  "dependencies": {
+    "@shower/material": "^2.2.1",
+    "@shower/ribbon": "^3.2.2",
+    "shower-core": "^2.1.0"
+  },
+  "devDependencies": {
+    "path-exists-cli": "^1.0.0",
+    "@shower/cli": "^0.2.6"
+  },
+  "scripts": {
+    "pdf": "shower pdf",
+    "start": "shower serve",
+    "prepare": "shower prepare --files '**' --files '!{docs,node_modules,prepared}{,/**}' --files '!*.{md,toml,json}'",
+    "archive": "shower archive --files '**' --files '!{docs,node_modules,prepared}{,/**}' --files '!*.{md,toml,json}'",
+    "publish": "shower publish --files '**' --files '!{docs,node_modules,prepared}{,/**}' --files '!*.{md,toml,json}'",
+    "test": "npm run prepare && ls prepared && npm run archive && path-exists archive.zip"
+  }
+}

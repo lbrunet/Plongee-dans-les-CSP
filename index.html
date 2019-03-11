@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>✍🏻 Plongée dans les CSP</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="node_modules/@shower/ribbon/styles/styles.css">
+    <link rel="stylesheet" href="styles/custom.css">
+    <style>
+        .shower {
+            --slide-ratio: calc(16 / 9);
+        }
+    </style>
+</head>
+<body class="shower list">
+
+    <header class="caption">
+        <h1>Plongée dans les CSP</h1>
+        <p>BreizhCamp - 9ème édition</p>
+    </header>
+
+    <section class="slide" id="cover">
+        <div class="cover-title">
+            <h2>Plongée dans les CSP</h2>
+            <p>BreizhCamp - 9ème édition - <a class="link--secondary" href="https://twitter.com/lbrunet_com">Laurent Brunet</a> - <span class="date">20 mars 2019</span></p>
+        </div>
+        <figure>
+            <img class="cover" src="pictures/csp12.jpg" alt="Hands on the orange typewriter in a park">
+        </figure>
+    </section>
+
+    <section class="slide">
+        <h2> Laurent BRUNET</h2>
+        <ul style="margin-bottom: 25px">
+            <li>Je suis développeur</li>
+            <li>Je travaille chez <img style="vertical-align: middle;" src="pictures/logo.svg" width="120px"/> - Paris </li>
+        </ul>
+        <p><img src="pictures/twitter.png" style="width: 30px; vertical-align: middle"> <a style="color: #42aae2" href="https://twitter.com/lbrunet_com">@lbrunet_com</a></p>
+    </section>
+
+    <section class="slide">
+        <h2>CSP, mais c'est quoi ? </h2>
+        <p class="next"><strong>CSP</strong> Content Security Policy</p>
+        <p class="next">C'est une couche de sécurité supplémentaire qui permet de détecter et d'atténuer certains types d'attaques, notamment les attaques XSS (Cross Site Scripting) et les attaques par injection de données.</p>
+        <p class="next">Ces attaques peuvent être utilisées dans divers buts, comme le vol de données, le défacement de site ou la diffusion de malware.</p>
+        <p class="next">Aujourd'hui, CSP est l’une des contre-mesures les plus prometteuses contre XSS.</p>
+        <p class="note">https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP</p>
+    </section>
+
+    <section class="slide">
+        <h2>Plusieurs niveaux</h2>
+        <ol class="big">
+            <li class="next">
+                <strong>2012:</strong> CSP niveau 1 - La recommandation du W3C a été publiée.
+                <p><a class="small" href="https://www.w3.org/TR/CSP1/">https://www.w3.org/TR/CSP1/</a></p>
+            </li>
+            <li class="next">
+                <strong>2015:</strong> CSP niveau 2 - La recommandation du W3C a été publiée.
+                <p><a class="small" href="https://www.w3.org/TR/CSP2/">https://www.w3.org/TR/CSP2/</a></p>
+            </li>
+            <li class="next">
+                <strong>2016:</strong> CSP niveau 3 - La version de travail du W3C est toujours en cours de travail.
+                <p><a class="small" href="https://www.w3.org/TR/CSP/">https://www.w3.org/TR/CSP/</a></p>
+            </li>
+        </ol>
+    </section>
+
+    <section class="slide">
+        <h2>Comment activer les CSP 1/2 ?</h2>
+        <p class="next">Graçe à une en-tête HTTP <code>Content-Security-Policy</code> </p>
+        <p class="next">
+            Nous avons plusieurs manières de le faire :
+        </p>
+        <ul>
+            <li class="next">PHP</li>
+            <li class="next">Nginx</li>
+            <li class="next">Apache</li>
+            <li class="next">balise Meta</li>
+        </ul>
+        <p class="next">⚠️ Pour le mode Meta, on ne peut pas utiliser la directive <code>frame-ancestors</code>, <code>report-uri</code>, ou <code>sandbox</code>. </p>
+    </section>
+
+    <section class="slide">
+        <h2>Comment activer les CSP 2/2 ?</h2>
+        <div class="next">
+            <h3>PHP</h3>
+            <code class="small">header("Content-Security-Policy: default-src 'self' https://domain.com https://*.domain.com; script-src 'self'…", true);</code>
+        </div>
+        <div class="next">
+            <h3>Nginx</h3>
+            <code class="small">add_header "Content-Security-Policy" "default-src 'none'; form-action 'none'; frame-ancestors 'none';"</code>
+        </div>
+        <div class="next">
+            <h3>Apache</h3>
+            <code class="small">Header set Content-Security-Policy "default-src 'none'; form-action 'none'; frame-ancestors 'none';"</code>
+        </div>
+        <!-- TODO Meta -->
+        <div class="next">
+            <h3>Meta</h3>
+            <code class="small">Header set Content-Security-Policy "default-src 'none'; form-action 'none';"</code>
+        </div>
+    </section>
+
+    <section class="slide picture" id="csp1">
+        <h2>Content Security Policy level 1</h2>
+        <figure>
+            <img class="cover" src="pictures/csp1.jpg" alt="Orange typewriter on a wooden table close-up">
+        </figure>
+    </section>
+
+    <section class="slide">
+        <h2>CSP Niveau 1</h2>
+        <ul>
+            <li class="next"><code class="small">default-src</code> Règle pour les éléments non spécifiés</li>
+            <li class="next"><code class="small">script-src</code> Directive dédiée aux JavaScript</li>
+            <li class="next"><code class="small">style-src</code> Directive dédiée aux styles</li>
+            <li class="next"><code class="small">img-src</code> Directive dédiée aux images</li>
+            <li class="next"><code class="small">connect-src</code> Directive dédiée à l’établissement de connexions depuis un objet <code class="small">XMLHttpRequest</code> ou une <code class="small">WebSocket</code></li>
+            <li class="next"><code class="small">font-src</code> Directive dédiée aux polices</li>
+            <li class="next"><code class="small">object-src</code> Directive dédiée aux plugins (éléments object, embed, ou applet)</li>
+            <li class="next"><code class="small">media-src</code> Directive dédiée aux éléments <code class="small">audio</code> et <code class="small">video</code></li>
+        </ul>
+        <p class="next">⚠️ Entre la directive <code class="small">default-src</code> et les autres directives <code class="small">*-src</code>, il n'y a pas d'héritage. </p>
+    </section>
+
+    <section class="slide picture" id="csp2">
+        <h2>Content Security Policy level 2</h2>
+        <figure>
+            <img class="cover" src="pictures/csp2.jpg" alt="Orange typewriter on a wooden table close-up">
+        </figure>
+    </section>
+
+    <section class="slide">
+        <h2>CSP Niveau 2</h2>
+        <ul>
+            <li class="next"><code class="small">Content-Security-Policy-Report-Only</code> Mise en place des règles sans danger, aucun blocage</li>
+            <li class="next"><code class="small">child-src</code> Directive les sources valides pour les web workers et les éléments comme <code class="small">frame</code> et <code class="small">iframe</code></li>
+            <li class="next"><code class="small">form-action</code> Directive dédiée aux sources autorisées utilisées dans l’attribut action d’un formulaire</li>
+            <li class="next"><code class="small">frame-ancestors</code> Directive dédiée aux éléments  <code class="small">frame</code>, <code class="small">iframe</code> , <code class="small">object</code> , <code class="small">embed</code> ou  <code class="small">applet</code> </li>
+            <li class="next"><code class="small">base-uri</code> Directive dédiée aux sources valides pour l’élément base qui indique l’adresse à utiliser pour recomposer toutes les adresses relatives contenues dans la page</li>
+        </ul>
+        <p class="next">🤘 Utilisation des nonces ou des hashes sur les scripts ou styles. </p>
+    </section>
+
+    <section class="slide">
+        <p>Toutes les directives qui se terminent par <code class="small">-src</code> prennent en charge des valeurs similaires. Chaque valeurs seront séparées par un espace, à l'exception de <code class="small">none</code> qui devrait être la seule valeur défini.</p>
+        <ul>
+            <li class="next"><code class="small">*</code></li>
+            <li class="next"><code class="small">none</code></li>
+            <li class="next"><code class="small">self</code></li>
+            <li class="next"><code class="small">data:</code></li>
+            <li class="next"><code class="small">https:</code></li>
+            <li class="next"><code class="small">*.lbrunet.com</code></li>
+            <li class="next"><code class="small">unsafe-inline</code></li>
+            <li class="next"><code class="small">unsafe-eval</code></li>
+            <li class="next"><code class="small">nonce-XXX</code></li>
+            <li class="next"><code class="small">sha256-XXX</code></li>
+        </ul>
+    </section>
+
+    <section class="slide">
+        <div style="width: 61%;">
+            <img src="pictures/ContentSecurityPolicy3_diagram.svg" alt="ContentSecurityPolicy3_diagram">
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2>Exemple</h2>
+        <pre class="small">
+            <code class="next">content-security-policy:</code>
+            <code class="next">  default-src <mark>'none'</mark> ; </code>
+            <code class="next">  style-src <mark>'self' https://example.com </mark>; </code>
+            <code class="next">  script-src <mark>'self'</mark> </code>
+            <code class="next">  base-uri <mark>'self'</mark> ;</code>
+            <code class="next">  object-src <mark>'none'</mark> ;</code>
+            <code class="next">  frame-ancestors <mark>'none'</mark> ;</code>
+            <code class="next">  form-action <mark>'self'</mark> ;</code>
+            <code class="next">  img-src <mark>'self' www.google-analytics.com data:</mark> ;</code>
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2 class="shout shrink">Mes scripts ou styles inline ? </h2>
+    </section>
+
+    <section class="slide">
+        <h2>Nonces et Hashes</h2>
+        <p>
+            <code class="small">nonces</code> et <code class="small">hashes</code> autorise le développeur à annoter explicitement chaque script approuvé (en ligne et externe), tout en empêchant l'exécution des scripts injectés par une tiers personne.
+        </p>
+        <pre class="small">
+            <code class="next">content-security-policy:</code>
+            <code class="next">  style-src <mark>'self' 'nonce-rfOHm1spSuNZWnfsKipedA==' </mark>; </code>
+            <code class="next">  script-src <mark>'sha256-qznLcsROx4GACP2dm0UCKCzCG+HiZ1guq6ZZDob/Tng='</mark> ;</code>
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2>Nonces</h2>
+        <div class="next">
+            <p><strong>Nonce : Number used Once</strong> (« numéro utilisé une seule fois »). Encore une fois, cela se définit dans les directives :</p>
+        </div>
+        <div class="next">
+            <h3>Directive</h3>
+            <code>script-src 'nonce-rfOHm1spSuNZWnfsKipedA==' ;</code>
+        </div>
+        <div class="next">
+            <h3>HTML</h3>
+            <code> &lt;script nonce="rfOHm1spSuNZWnfsKipedA=="&gt;…&lt;/script&gt; </code>
+        </div>
+        <p class="next">Cela revient à dire au navigateur de ne rien bloquer pour ce qui correspond à ce nonce.</p>
+
+        <p class="next">⚠️ Un nonce doit être unique, re-généré à chaque fois, et bien entendu secret ! </p>
+    </section>
+
+    <section class="slide">
+        <h2>Hashes</h2>
+        <div class="next">
+            <h3>Directive</h3>
+            <p>
+                <code>script-src 'sha256-qznLcsROx4GACP2dm0UCKCzCG+HiZ1guq6ZZDob/Tng=' ;</code>
+            </p>
+        </div>
+        <div class="next">
+            <h3>HTML</h3>
+            <p>
+                <code> &lt;script&gt;alert('Hello, world.');&lt;/script&gt; </code>
+            </p>
+        </div>
+        <div class="next">
+            <p>
+                Similaire à <code>nonce</code> sur la directive, mais rien n'a spécifier au niveau de la balise script.
+            </p>
+        </div>
+        <div class="next">
+            <p>
+                Exemple en PHP : <code>echo base64_encode(hash('sha256', "alert('Hello, world.');", true));</code>
+            </p>
+        </div>
+
+        <p class="next">⚠️ Le moindre espace change le hash ! </p>
+    </section>
+
+
+    <section class="slide">
+        <h2>Nonces ou Hashes ?</h2>
+        <div class="next">
+            <h3 style="font-size: 20px">Hashes</h3>
+            <p>
+                Si le script est statique (le contenu ne change pas), vous pouvez ajouter un hachage SHA-256 du script à la directive CSP afin que le script soit ajouté à la liste blanche.
+            </p>
+        </div>
+        <div class="next">
+            <hr>
+            <h3 style="font-size: 20px">Nonce</h3>
+            <p>
+                Cependant, si le script est sujet à modification, vous avez la possibilité d'ajouter un nonce codé en base64 (valeur aléatoire) à la fois à la directive CSP et à la balise de script.
+            </p>
+        </div>
+    </section>
+
+    <section class="slide picture" id="reporting">
+        <h2>Reporting</h2>
+        <figure>
+            <img class="cover" src="pictures/csp10.jpg" alt="Orange typewriter on a wooden table close-up">
+        </figure>
+    </section>
+
+    <section class="slide">
+        <h2>Reporting 1/2</h2>
+        <div class="next">
+            <p>
+                Une directive CSP est conçu pour bloquer le contenu qui n’a pas été explicitement inscrit sur la liste blanche, par un nom d’hôte, un nonce ou un hachage.
+            </p>
+            <p>
+                La directive <code class="small">raport-uri</code> va nous aider à enregistrer les rapports en violation selon notre liste blanche défini.
+            </p>
+
+            <h3 style="font-size: 20px">Nginx</h3>
+            <code class="small">add_header Content-Security-Policy "default-src 'none'; style-src 'self'; object-src 'none'; script-src 'self'; base-uri 'none'; report-uri /csp-reports";</code>
+        </div>
+        <div class="next" style="margin-top: 20px">
+            <h3 style="font-size: 20px"><s>META Content-Security-Policy <small>(pas de raport-uri)</small></s></h3>
+            <s><code class="small">&lt;meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; object-src 'none'; script-src 'self'; base-uri 'none'"&gt;</code></s>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2>Reporting 2/2</h2>
+        <div class="next">
+            <pre style="font-size: 16px">
+                <code class="">"csp-report":{</code>
+                <code class="">    "document-uri":"https:\/\/lbrunet.com\/",</code>
+                <code class="">    "referrer":"",</code>
+                <code class="">    "violated-directive":"style-src-attr",</code>
+                <code class="">    "effective-directive":"style-src-attr",</code>
+                <code class="">    "original-policy":"default-src https:; style-src \u0027self\u0027; script-src \u0027self\u0027; frame-ancestors \u0027none\u0027; object-src \u0027none\u0027; img-src https: data:; base-uri \u0027self\u0027; report-uri https:\/\/9241978986399846732a.report-uri.com\/r\/d\/csp\/reportOnly https:\/\/p4x572p4.uriports.com\/reports\/report \/csp-reports;",</code>
+                <code class="">    "disposition":"enforce",</code>
+                <code class="">    "blocked-uri":"inline",</code>
+                <code class="">    "line-number":63,</code>
+                <code class="">    "source-file":"https:\/\/lbrunet.com\/",</code>
+                <code class="">    "status-code":0,</code>
+                <code class="">    "script-sample":""</code>
+                <code class="">}</code>
+            </pre>
+            <p class="note" style="margin-left: -30px;"><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy-Report-Only#Violation_report_syntax">https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy-Report-Only#Violation_report_syntax</a></p>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2>Reporting (only)</h2>
+        <div class="next">
+            <p>
+                La mise en place de CSP peut se faire de manière progressive depuis CSP2 avec l'en-tête HTTP <code class="small">Content-Security-Policy-Report-Only</code>
+            </p>
+        </div>
+        <div class="next">
+            <p>
+                L'approche est exactement la même que <code class="small">Content-Security-Policy</code> avec l'avantage de ne pas bloquer les ressources côté navigateur 🤘
+            </p>
+        </div>
+        <div class="next">
+            <p>
+                Avec <code class="small">Report-Only</code> et <code class="small">report-uri</code> vous pouvez tester des directives sans danger, et reçevoir par mail, stocker en base de donnée, faire des stats de chaque violations et pour le coup c'est assez rapide à mettre en place.
+            </p>
+        </div>
+        <div class="next">
+        <hr>
+            <p> ⚠️  Vous pouvez cumuller <code class="small">Content-Security-Policy</code> et <code class="small">Content-Security-Policy-Report-Only</code> avec leur propre <code class="small">report-uri</code> 👏 👏 👏 </p>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2>Outils de reporting 1/2</h2>
+        <div class="next">
+            <img class="" src="pictures/uriports.com.png" alt="uriports.com">
+            <p class="note"><a href="https://www.uriports.com/">https://www.uriports.com/</a></p>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2>Outils de reporting 2/2</h2>
+        <div class="next">
+            <img class="" src="pictures/report-uri.com.png" alt="report-uri.com">
+            <p class="note"><a href="https://report-uri.com">https://report-uri.com</a></p>
+        </div>
+    </section>
+
+    <section class="slide picture" id="csp3">
+        <h2>Content Security Policy level 3</h2>
+        <figure>
+            <img class="cover" src="pictures/csp3.jpg" alt="Orange typewriter on a wooden table close-up">
+        </figure>
+    </section>
+
+    <section class="slide">
+        <h2>CSP Niveau 3</h2>
+        <ul>
+            <li class="next"><code class="small">manifest-src</code> a été ajouté</li>
+            <li class="next"><code class="small">report-uri</code> est déconseillé au profit de <code class="small">report-to</code></li>
+            <li class="next"><code class="small">'self'</code> correspond maintenant à <code class="small">https:</code> et <code class="small">wss:</code>, même sur les pages dont le schéma est <code class="small">http</code>.</li>
+            <li class="next"><code class="small">script-dynamic</code> uniquement pour les directives <code class="small">script-src</code> and <code class="small">default-src</code>  </li>
+            <li class="next">Quand un <code class="small">script/style </code>ou une <code class="small">eval</code> en ligne est bloqué, <code class="small">bloque-uri</code> renvoie maintenant inline ou eval.</li>
+            <li class="next"><code class="small">navigate-to</code> <a href="https://docs.google.com/document/d/1eMfw7sSIPtPPs9T3K2C8SfDi3Q7OXRTrRDdkGOLb19M/edit">Des informations sur l'orientation de cette directive</a></li>
+        </ul>
+    </section>
+
+
+    <section class="slide">
+        <h2>Sécurité du CSP en général 1/3</h2>
+        <figure class="flex next">
+            <blockquote>
+                <p> CSP est mort, vive le CSP ! <br> Sur l'insécurité des listes blanches et l'avenir de la politique de sécurité du contenu.</p>
+            </blockquote>
+            <figcaption>Google</figcaption>
+            <p class="note"><a href="https://ai.google/research/pubs/pub45542">https://ai.google/research/pubs/pub45542</a></p>
+        </figure>
+    </section>
+
+
+    <section class="slide">
+        <h2>Sécurité du CSP en général 2/3</h2>
+        <div class="next">
+            <p>
+                En 2016, google publie un article ayant des statistiques et des conseils pour
+                améliorer les statégies CSP avec la mise en place de <code class="small">script-dynamic</code>
+            </p>
+        </div>
+        <p class="next">
+            Parmi les stratégies de protection XSS :
+        </p>
+        <ul>
+            <li class="next">
+                <strong>87,63%</strong> ont utilisé le mot-clé <code class="small">unsafe-inline</code> sans spécifier de <code class="small">nonce</code> ou de <code class="small">hash</code> ce qui désactive essentiellement les capacités de protection CSP
+            </li>
+            <li class="next">
+                <strong>9,4%</strong> des politiques ne contiennent ni la directive  <code class="small">default-src</code> ni la directive <code class="small">object-src</code> ainsi, les attaquants peuvent exploiter une vulnérabilité XSS en injectant un objet Flash malveillant capable d'exécuter JavaScript.
+            </li>
+        </ul>
+        <p class="note"><a href="https://ai.google/research/pubs/pub45542">https://ai.google/research/pubs/pub45542</a></p>
+    </section>
+
+    <section class="slide validation">
+        <h2>Sécurité du CSP en général 3/3</h2>
+        <pre class="next">
+            <code>script-src 'self' https://example.org;</code>
+            <code>object-src 'none';</code>
+            <code>&lt;script src="//example.org/script.js"&gt;&lt;/script&gt;</code>
+        </pre>
+
+        <p class="next">L'attaquant pourrait abuser du point de terminaison JSONP en injectant un script avec l'URL suivante: <code>https://example.org/jsonp?callback=malicious_code</code></p>
+
+        <pre class="next">
+            <code>&lt;script </code>
+            <code>  nonce="rfOHm1spSuNZWnfsKipedA=="</code>
+            <code>  src="//example.org/script.js"&gt;</code>
+            <code>&lt;/script&gt;</code>
+        </pre>
+        <div class="next no-valid"></div>
+        <div class="next valid"></div>
+    </section>
+
+    <section class="slide">
+        <h2>Mode CSP strict 1/3</h2>
+        <p class="next">
+            Pour mettre en place une stratégie CSP stricte, il faudra:
+        </p>
+        <ul>
+            <li class="next">Ajouter l'attribut <code class="small">nonce</code> à tous les <code class="small">&lt;script&gt;</code></li>
+            <li class="next">Pour chaque chargement de la page, générez un nouveau <code class="small">nonce</code></li>
+            <li class="next">Pour le code statique, vous pouvez utiliser <code class="small">sha256</code></li>
+            <li class="next">Revoir tout balisage des gestionnaires d'événements en ligne <code class="small">onClick</code></li>
+        </ul>
+    </section>
+
+    <section class="slide">
+        <h2>Mode CSP strict 2/3</h2>
+        <div class="next">
+            <h3>Liste blanche</h3>
+            <pre>
+                <code>Content-Security-Policy</code>
+                <code>  script-src 'self';</code>
+            </pre>
+        </div>
+        <div class="next">
+            <h3>mode strict</h3>
+            <pre>
+                <code>Content-Security-Policy</code>
+                <code>  script-src 'sha256-Shc9zyGHe0eDIj8DYmcqZpX2gGW1wFcjo+6iwlq/WaQ='</code>
+                <code>  'strict-dynamic' 'unsafe-inline' https:;</code>
+            </pre>
+        </div>
+        <div class="next">
+            <p>La valeur <code class="small">strict-dynamic</code> permet l'exécution de scripts ajoutés dynamiquement à la page, à condition qu'ils aient été chargés par un script sûr et déjà sécurisé</p>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2 style="margin-bottom: 5px">Mode CSP strict 3/3</h2>
+        <div class="next">
+            <pre class="small color-gray">
+                <code><strong>script-src</strong> 'nonce-r4nd0m' 'strict-dynamic' 'unsafe-inline' https:;</code>
+                <code><strong>object-src</strong> 'none'; <strong>base-uri</strong> 'none';</code>
+            </pre>
+        </div>
+        <div class="next">
+            <h3>CSP3 avec support strict-dynamic <small><a href="https://www.chromestatus.com/feature/5633814718054400">Chrome 52+</a> -  <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1299483">Firefox 52+</a> </small></h3>
+            <pre class="small color-gray">
+                <code><strong>script-src</strong> 'nonce-r4nd0m' 'strict-dynamic' <del class="csp2">'unsafe-inline'</del> <del class="csp3">https:</del>;</code>
+                <code><strong>object-src</strong> 'none'; <strong>base-uri</strong> 'none'; </code>
+            </pre>
+        </div>
+        <div class="next">
+            <h3>CSP2 avec support nonce</h3>
+            <pre class="small color-gray">
+                <code><strong>script-src</strong> 'nonce-r4nd0m' <span class="disabled">'strict-dynamic'</span> <del class="csp2">'unsafe-inline'</del> https:;</code>
+                <code><strong>object-src</strong> 'none'; <strong>base-uri</strong> 'none';</code>
+            </pre>
+        </div>
+        <div class="next">
+            <h3>CSP1 pas de support nonce</h3>
+            <pre class="small color-gray">
+                <code><strong>script-src</strong> <span class="disabled">'nonce-r4nd0m'</span> <span class="disabled">'strict-dynamic'</span> 'unsafe-inline' https:;</code>
+                <code><strong>object-src</strong> 'none'; <strong>base-uri</strong> 'none';</code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2 class="shout shrink">Démonstration </h2>
+    </section>
+
+    <section class="slide">
+        <h2>Récapitulatif</h2>
+        <ul>
+            <li class="next">mode <strong>liste blanche</strong> ou <strong>strict-dynamic</strong> selon votre besoin</li>
+            <li class="next"><code class="small"> <strong>default-src</strong> 'none'; <strong>object-src</strong> 'none'; <strong>base-uri</strong> 'self';</code> minimum</li>
+            <li class="next">Utilisation de nonces ou haches sur les scripts / styles</li>
+            <li class="next">Utiliser le reporting avec <code class="small">report-uri</code></li>
+            <li class="next">Utiliser <code class="small">Content-Security-Policy-Report-Only</code></li>
+            <li class="next">
+                Faites valider vos directives
+                <ul>
+                    <li><a href="https://csp-evaluator.withgoogle.com/">https://csp-evaluator.withgoogle.com/</a></li>
+                    <li><a href="https://www.htbridge.com/websec/?id=VtlKhoyn">https://www.htbridge.com/websec/?id=VtlKhoyn</a></li>
+                    <li><a href="https://report-uri.com/home/tools">https://report-uri.com/home/tools</a></li>
+                    <li><a href="https://securityheaders.com/?q=https://lbrunet.com">https://securityheaders.com/?q=https://lbrunet.com</a></li>
+                    <li><a href="https://tools.geekflare.com/report/csp-test/https://lbrunet.com">https://tools.geekflare.com/report/csp-test/https://lbrunet.com</a></li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+
+    <section class="slide" id="thanks">
+        <h2 class="shout">
+            Merci 😴
+        </h2>
+        <h4>
+            <strong>Twitter</strong> <a href="http://twitter.com/lbrunet_com">@lbrunet_com</a>
+        </h4>
+        <h4>
+            <strong>Github</strong> <a href="https://github.com/lbrunet">https://github.com/lbrunet</a>
+        </h4>
+        <h4>
+            <strong>Site</strong> <a href="https://lbrunet.com">https://lbrunet.com</a>
+        </h4>
+        <ul class="note">
+            <li>https://csp.withgoogle.com/docs/index.html</li>
+            <li>https://www.tollmanz.com/content-security-policy-report-samples/</li>
+            <li>https://developers.google.com/web/fundamentals/security/csp/</li>
+            <li>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy</li>
+            <li>https://content-security-policy.com/</li>
+            <li>https://scotthelme.co.uk/</li>
+            <li>https://www.w3.org/TR/CSP3/</li>
+            <li>https://githubengineering.com/githubs-csp-journey/</li>
+        </ul>
+        <style>
+            #thanks h2 {
+                font-size: 100px
+            }
+
+            #thanks h4 {
+                position: relative;
+                z-index: 100;
+            }
+
+            #thanks h4 a {
+                text-decoration: none;
+                background-image: none;
+                font-size: 20px;
+                display: block;
+                color: #aa8f0e;
+            }
+        </style>
+    </section>
+
+    <footer class="badge">
+        <a href="https://github.com/lbrunet/shower">Fork me on GitHub</a>
+    </footer>
+
+    <div class="progress"></div>
+
+    <script src="node_modules/shower-core/shower.min.js"></script>
+    <script>
+        var i = 1;
+        document.querySelectorAll('section.slide').forEach(function(el) {
+            el.insertAdjacentHTML('beforeend', '<div class="progressbar-content"></div>');
+            i++;
+        });
+    </script>
+</body>
+</html>
