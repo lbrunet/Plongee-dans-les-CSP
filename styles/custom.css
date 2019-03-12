@@ -172,6 +172,13 @@ ul, ol {
     font-size: 14px;
 }
 
+.slide a.small {
+    display: block;
+    font-size: 10px;
+    background: none;
+    margin-bottom: 10px;
+}
+
 .slide pre.small {
     font-size: 20px;
 }
