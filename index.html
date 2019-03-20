@@ -144,8 +144,8 @@
     <section class="slide">
         <h2>CSP Niveau 2</h2>
         <ul>
-            <li class="next"><code class="small">child-src</code> Directive les sources valides pour les web workers et les éléments comme <code class="small">frame</code> et <code class="small">iframe</code></li>
-            <li class="next"><code class="small">form-action</code> Directive dédiée aux sources autorisées utilisées dans l’attribut action d’un formulaire</li>
+            <li class="next"><code class="small">child-src</code> Directive dédiée aux sources valides pour les web workers et les éléments comme <code class="small">frame</code> et <code class="small">iframe</code></li>
+            <li class="next"><code class="small">form-action</code> Directive dédiée aux sources autorisées à utiliser l’attribut action d’un formulaire</li>
             <li class="next"><code class="small">frame-ancestors</code> Directive dédiée aux éléments  <code class="small">frame</code>, <code class="small">iframe</code> , <code class="small">object</code> , <code class="small">embed</code> ou  <code class="small">applet</code> </li>
             <li class="next"><code class="small">base-uri</code> Directive dédiée aux sources valides pour l’élément base qui indique l’adresse à utiliser pour recomposer toutes les adresses relatives contenues dans la page</li>
         </ul>
@@ -207,7 +207,7 @@
     <section class="slide">
         <h2>Nonces et Hashes</h2>
         <p>
-            <code class="small">nonces</code> et <code class="small">hashes</code> autorise le développeur à annoter explicitement chaque script approuvé (en ligne et externe), tout en empêchant l'exécution des scripts injectés par une tierce personne.
+            <code class="small">nonces</code> et <code class="small">hashes</code> autorisent le développeur à annoter explicitement chaque script approuvé (en ligne et externe), tout en empêchant l'exécution des scripts injectés par une tierce personne.
         </p>
         <pre class="small">
             <code class="next">content-security-policy:</code>
@@ -327,7 +327,7 @@
         </div>
         <div class="next">
             <p>
-                Avec <code class="small">Report-Only</code> et <code class="small">report-uri</code> vous pouvez tester des directives sans danger, et reçevoir par mail, stocker en base de données, faire des stats de chaque violation et pour le coup c'est assez rapide à mettre en place.
+                Avec <code class="small">Report-Only</code> et <code class="small">report-uri</code> vous pouvez tester des directives sans danger, reçevoir par mail, stocker en base de données, faire des stats de chaque violation, c'est rapide à mettre en place.
             </p>
         </div>
         <div class="next">
@@ -388,7 +388,7 @@
             <li class="next"><code class="small">worker-src</code> a été ajouté</li>
             <li class="next"><code class="small">report-uri</code> est déconseillé au profit de <code class="small">report-to</code></li>
             <li class="next"><code class="small">'self'</code> correspond maintenant à <code class="small">https:</code> et <code class="small">wss:</code>, même sur les pages dont le schéma est <code class="small">http</code>.</li>
-            <li class="next"><code class="small">script-dynamic</code> uniquement pour les directives <code class="small">script-src</code> and <code class="small">default-src</code>  </li>
+            <li class="next"><code class="small">script-dynamic</code> uniquement pour les directives <code class="small">script-src</code> et <code class="small">default-src</code>  </li>
             <li class="next">Quand un <code class="small">script/style </code>ou une <code class="small">eval</code> en ligne est bloqué, <code class="small">bloque-uri</code> renvoie maintenant inline ou eval.</li>
             <li class="next"><code class="small">navigate-to</code> les liens,  <code class="small">window.location.href</code>, balises Meta refresh, ... <a class="small" href="https://docs.google.com/document/d/1eMfw7sSIPtPPs9T3K2C8SfDi3Q7OXRTrRDdkGOLb19M/edit">Des informations sur l'orientation de cette directive</a></li>
             <li class="next"><code class="small">'unsafe-hashed-attributes' 'unsafe-hashes'</code> Permet d'activer des gestionnaires JS en ligne spécifiques avec un hachage. <a class="small" href="https://docs.google.com/document/d/1_nYS4gWYO2Oh8rYDyPglXIKNsgCRVhmjHqWlTAHst7c/edit#heading=h.ue3d7ohicxh3">Des informations sur l'orientation de cette directive</a></li>
@@ -421,7 +421,7 @@
         </p>
         <ul>
             <li class="next">
-                <strong>87,63%</strong> ont utilisé le mot-clé <code class="small">unsafe-inline</code> sans spécifier de <code class="small">nonce</code> ou de <code class="small">hash</code> ce qui désactive essentiellement les capacités de protection CSP
+                <strong>87,63%</strong> ont utilisé le mot-clé <code class="small">unsafe-inline</code> sans spécifier de <code class="small">nonce</code> ou de <code class="small">hash</code>, ce qui désactive essentiellement les capacités de protection CSP
             </li>
             <li class="next">
                 <strong>9,4%</strong> des politiques ne contiennent ni la directive  <code class="small">default-src</code> ni la directive <code class="small">object-src</code> ainsi, les attaquants peuvent exploiter une vulnérabilité XSS en injectant un objet Flash malveillant capable d'exécuter JavaScript.
@@ -438,7 +438,7 @@
             <code>&lt;script src="//example.org/script.js"&gt;&lt;/script&gt;</code>
         </pre>
 
-        <p class="next">L'attaquant pourrait abuser du point de terminaison JSONP en injectant un script avec l'URL suivante: <code class="small"> &lt;script src=”https://example.org/jsonp?callback=alert (1); //”&gt;&lt;/ script&gt; </code></p>
+        <p class="next">L'attaquant pourrait abuser du point de terminaison JSONP en injectant un script avec l'URL suivante : <code class="small"> &lt;script src=”https://example.org/jsonp?callback=alert (1); //”&gt;&lt;/ script&gt; </code></p>
 
         <pre class="next">
             <code>&lt;script </code>
@@ -457,7 +457,7 @@
         </p>
         <ul>
             <li class="next">Ajouter l'attribut <code class="small">nonce</code> à tous les <code class="small">&lt;script&gt;</code></li>
-            <li class="next">Pour chaque chargement de la page, générez un nouveau <code class="small">nonce</code></li>
+            <li class="next">Pour chaque chargement de la page, générer un nouveau <code class="small">nonce</code></li>
             <li class="next">Pour le code statique, vous pouvez utiliser <code class="small">sha256</code> <code class="small">sha385</code> <code class="small">sha512</code></li>
             <li class="next">Revoir tout balisage des gestionnaires d'événements en ligne <code class="small">onClick</code></li>
         </ul>
@@ -535,7 +535,7 @@
             <li class="next">Utiliser le reporting avec <code class="small">report-uri</code></li>
             <li class="next">Utiliser <code class="small">Content-Security-Policy-Report-Only</code></li>
             <li class="next">
-                Faites valider vos directives
+                Faire valider vos directives
                 <ul>
                     <li><a href="https://csp-evaluator.withgoogle.com/">https://csp-evaluator.withgoogle.com/</a></li>
                     <li><a href="https://www.htbridge.com/websec/?id=VtlKhoyn">https://www.htbridge.com/websec/?id=VtlKhoyn</a></li>
