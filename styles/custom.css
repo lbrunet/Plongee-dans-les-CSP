@@ -258,3 +258,9 @@ del.csp3 {
 }
 
 .disabled { color: #bdbdbd; }
+
+.p-b {
+    position: absolute;
+    right: 35px;
+    bottom: 10px;
+}
