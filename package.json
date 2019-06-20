@@ -26,13 +26,16 @@
     "README.md"
   ],
   "devDependencies": {
+    "@shower/cli": "^0.2.6",
     "@shower/material": "^2.2.1",
     "@shower/ribbon": "^3.2.2",
-    "shower-core": "^2.1.0",
     "path-exists-cli": "^1.0.0",
-    "@shower/cli": "^0.2.6"
+    "shower-core": "^2.1.0"
   },
   "scripts": {
     "pdf": "shower pdf"
+  },
+  "dependencies": {
+    "axios": "^0.18.1"
   }
 }
