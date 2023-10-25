@@ -1,6 +1,6 @@
 # Plongée dans les CSP
 
-Retrouvez les diapositives de la conférence "Plongée dans les CSP", tenue au Breizhcamp 2019 à Rennes.
+Retrouvez les diapositives de la conférence "`Plongée dans les CSP`", tenue au Breizhcamp 2019 à Rennes, mais aussi au [Forum PHP 2022](https://youtu.be/uMsj7X3KQV0).
 
 https://lbrunet.github.io/Plongee-dans-les-CSP/
 
